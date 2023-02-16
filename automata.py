@@ -3,17 +3,12 @@ print("L2 is a set of strings starting with substring alpha_one alpha_two alpha 
 print("pick language L1 OR L2?",end="")
 language = input().upper()
 
-print(f"You have chosen {language}")
-
-
 class wrongLanguageError(ValueError):
    pass
 
-# class invalidAlphabet(ValueError):
-#     pass
 
 def pickLanguage(choice):
-    #choice=choice.upper()
+
     if choice == "L1":
         language_one()
     elif choice == "L2":
@@ -21,6 +16,14 @@ def pickLanguage(choice):
     else:
         print("wrong language")
         raise wrongLanguageError(choice)
+def checkAlphabets(letter_one,letter_two,b):
+    if b== letter_one or b == letter_two:
+        pass
+    else:
+        raise KeyError(" string has a wrong alphabet")
+def checkIfEmpty(test_string):
+    if test_string == "":
+        raise ValueError("cannot enter empty string")
 
 def language_one():
     print("Executing language 1")
@@ -28,8 +31,6 @@ def language_one():
     alpha_one = input()#was a
     print("Enter the second alphabet ", end="")
     alpha_two = input()
-    states = ["A","B","C","D"]
-    alphabets = [alpha_one,alpha_two]
     start_state = "A"
     final_state = "B"
     transition_function = {
@@ -47,6 +48,7 @@ def language_one():
     def getResponse():
         print("Enter the string  ", end="")
         response = input()
+        checkIfEmpty(response)
         return response
     def processString(string_input):
 
@@ -55,10 +57,7 @@ def language_one():
         else:
             current = start_state
             for i in string_input:
-                if i == alpha_one or i == alpha_two:
-                    pass
-                else:
-                    raise KeyError("entered invalid alphabet")
+                checkAlphabets(alpha_one,alpha_two,i)
                 current = transition_function[(current, i)]
 
 
@@ -70,16 +69,12 @@ def language_one():
             processString(getResponse())
     processString(getResponse())
 
-
-#language_one()
 def language_two():
     print("Executing language 2")
     print("Enter the first alphabet ", end="")
     alpha_one = input()#was 1
     print("Enter the second alphabet ", end="")
     alpha_two = input()
-    states = ["q0","q1","q2","q3","q4"]
-    alphabets = [alpha_one,alpha_two]
     start_state = "q0"
     final_state = "q3"
     transition_function = {
@@ -100,6 +95,7 @@ def language_two():
     def getResponse():
         print("Enter the string  ", end="")
         response = input()
+        checkIfEmpty(response)
         return response
     def processString(string_input):
 
@@ -108,10 +104,7 @@ def language_two():
         else:
             current = start_state
             for i in string_input:
-                if i == alpha_one or i == alpha_two:
-                    pass
-                else:
-                    raise KeyError("entered invalid alphabet")
+                checkAlphabets(alpha_one, alpha_two, i)
                 current = transition_function[(current, i)]
 
 
@@ -124,5 +117,6 @@ def language_two():
     processString(getResponse())
 
 
-#language_two()
 pickLanguage(language)
+
+
